@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearMind Logic - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">ClearMind Logic</div>
+        <div class="header-nav">
+            <a href="index.html">Exit</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="status-badge" id="validation-count">
+            Authenticating status...
+        </div>
+
+        <h1>Validation Control</h1>
+        <p>Select an operation to proceed with capital allocation evaluation.</p>
+
+        <div class="divider"></div>
+
+        <div style="display: flex; flex-direction: column; gap: 24px; max-width: 300px;">
+            <a href="analysis.html" class="btn btn-primary" style="justify-content: flex-start;">New Validation Protocol</a>
+            <a href="plan.html" class="btn btn-outline" style="justify-content: flex-start;">Manage Access Plan</a>
+        </div>
+
+        <div class="mt-80">
+            <h3>Previous Validations</h3>
+            <p style="font-size: 0.9rem;">No historical records found for this identity.</p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { getUserStatus } from './services/api.js';
+
+        const token = localStorage.getItem('cm_token') || 'demo_token';
+
+        async function initDashboard() {
+            try {
+                // Mock API call visually:
+                document.getElementById('validation-count').textContent = 'Remaining validations: 5';
+            } catch (err) {
+                console.error('Status fetch failed', err);
+                document.getElementById('validation-count').textContent = 'Status: Offline';
+            }
+        }
+
+        initDashboard();
+    </script>
+</body>
+</html>

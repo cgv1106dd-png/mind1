@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearMind Logic — Validation Record</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Base page constraints */
+        html, body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow-y: auto; /* Allow scrolling */
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-color); /* ensures full height fill */
+        }
+
+        header {
+            flex-shrink: 0; /* Header stays at top */
+        }
+
+        /* Container fills remaining space, pushes operational implications to bottom */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px 40px !important;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-y: auto; /* Allow overflow inside */
+        }
+
+        /* Tighter document header */
+        .document-header {
+            margin-bottom: 16px !important;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+        .document-header .doc-type {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        .document-header h1 {
+            font-size: 1.8rem !important; /* Slightly reduced */
+            margin-top: 0 !important;
+            margin-bottom: 4px !important;
+            letter-spacing: -0.02em;
+        }
+        .document-header .doc-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Tighter meta section */
+        .document-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-color);
+            margin-bottom: 24px !important;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        /* 3. Two-column grid structure */
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px 40px;
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+        .compact-section {
+            display: flex;
+            flex-direction: column;
+        }
+        .compact-section h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+            margin-top: 0;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        .compact-section p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* 4. Final Determination centered and prominent */
+        .determination-wrapper {
+            text-align: center;
+            margin: 24px 0;
+            flex-shrink: 0;
+        }
+        .determination-wrapper h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            margin-top: 0;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .determination {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin: 0;
+            display: inline-block;
+        }
+        .determination.authorized {
+            color: #3a7a4a;
+        }
+        .determination.not-authorized {
+            color: #8b2e2e;
+        }
+
+        /* 5. Keep Operational Implications at bottom (push down using auto margin) */
+        .op-implications-wrapper {
+            margin-top: auto; /* Pushes content below to the bottom of flex container */
+            border-top: 1px solid var(--border-color);
+            padding-top: 16px;
+            flex-shrink: 0;
+        }
+        .op-implications-wrapper h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        .op-implications-wrapper p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Footer line */
+        .footer-note {
+            text-align: center;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-top: 16px;
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+
+        .no-result {
+            text-align: center;
+            padding: 120px 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ClearMind Logic</div>
+        <div class="header-nav">
+            <a href="#" onclick="window.print(); return false;">Print Record</a>
+            <a href="dashboard.html">Close</a>
+        </div>
+    </header>
+
+    <div class="container" id="result-container">
+        <!-- Populated by renderResult() -->
+        <div class="no-result" id="loading-state">Retrieving record...</div>
+    </div>
+
+    <script>
+        // ── PART 4: Result Renderer ───────────────────────────────────────
+
+        /**
+         * Renders the structured validation response as a formal document.
+         * Maps EXACT field names from the backend response.output object.
+         * @param {Object} response - Full response from simulateValidationResponse() or API
+         */
+        function renderResult(response) {
+            const container = document.getElementById('result-container');
+
+            if (!response || !response.success || !response.output) {
+                container.innerHTML = '<div class="no-result">No validation record found. Complete a validation protocol first.</div>';
+                return;
+            }
+
+            const out = response.output;
+            const id  = response.analysisId || '—';
+
+            // ── PART 5: Decision color logic ─────────────────────────────
+            const decisionValue = (out['Final Determination'] || '').trim().toUpperCase();
+            let determinationClass = '';
+            if (decisionValue === 'AUTHORIZED') {
+                determinationClass = 'authorized';
+            } else if (decisionValue === 'NOT AUTHORIZED' || decisionValue === 'NO_AUTORIZADA') {
+                determinationClass = 'not-authorized';
+            }
+
+            // Display label (human-readable)
+            const decisionLabel = decisionValue === 'AUTHORIZED'
+                ? 'AUTHORIZED'
+                : decisionValue === 'NOT AUTHORIZED' || decisionValue === 'NO_AUTORIZADA'
+                    ? 'NOT AUTHORIZED'
+                    : decisionValue;
+
+            // ── PART 6: Document structure ───────────────────────────────
+            container.innerHTML = `
+                <div class="document-header">
+                    <p class="doc-type">ClearMind Logic — Protocol Output</p>
+                    <h1>Structured Validation</h1>
+                    <p class="doc-desc">Pre-execution protocol for capital commitment</p>
+                </div>
+
+                <div class="document-meta">
+                    <div>Reference: ${escapeHtml(id)}</div>
+                    <div id="result-timestamp">Timestamp: —</div>
+                    <div>Status: Finalized</div>
+                    <div>Variant: Standard Capital</div>
+                </div>
+
+                <div class="grid-2-col">
+                    <div class="compact-section">
+                        <h3>Executive Insight</h3>
+                        <p>${escapeHtml(out['Executive Insight'] || '—')}</p>
+                    </div>
+                    <div class="compact-section">
+                        <h3>Strategic Evaluation</h3>
+                        <p>${escapeHtml(out['Strategic Evaluation'] || '—')}</p>
+                    </div>
+                    <div class="compact-section">
+                        <h3>Risks and Exposures</h3>
+                        <p>${escapeHtml(out['Risks and Exposures'] || '—')}</p>
+                    </div>
+                    <div class="compact-section">
+                        <h3>Determining Trade-offs</h3>
+                        <p>${escapeHtml(out['Determining Trade-offs'] || '—')}</p>
+                    </div>
+                </div>
+
+                <div class="determination-wrapper">
+                    <h3>Final Determination</h3>
+                    <div class="determination ${determinationClass}">
+                        ${escapeHtml(decisionLabel)}
+                    </div>
+                </div>
+
+                <div class="op-implications-wrapper">
+                    <h3>Operational Implications</h3>
+                    <p>${escapeHtml(out['Operational Implications'] || '—')}</p>
+                </div>
+
+                <div class="footer-note">
+                    End of Record — ${escapeHtml(id)}
+                </div>
+            `;
+
+            // Set timestamp after render
+            const dateOptions = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+            document.getElementById('result-timestamp').textContent =
+                'Date: ' + new Date().toLocaleDateString('en-US', dateOptions);
+        }
+
+        // ── Security: minimal HTML escaping ──────────────────────────────
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g,  '&amp;')
+                .replace(/</g,  '&lt;')
+                .replace(/>/g,  '&gt;')
+                .replace(/"/g,  '&quot;')
+                .replace(/'/g,  '&#39;');
+        }
+
+        // ── PART 7: Load from storage and render ─────────────────────────
+        (function init() {
+            const raw = localStorage.getItem('clearmind_result');
+            if (!raw) {
+                document.getElementById('result-container').innerHTML =
+                    '<div class="no-result">No validation record found.<br>Complete a validation protocol first.</div>';
+                return;
+            }
+
+            try {
+                const response = JSON.parse(raw);
+                renderResult(response);
+            } catch (err) {
+                console.error('[ClearMind Logic] Failed to parse stored result:', err);
+                document.getElementById('result-container').innerHTML =
+                    '<div class="no-result">Record could not be retrieved. Data may be corrupted.</div>';
+            }
+        })();
+    </script>
+</body>
+</html>

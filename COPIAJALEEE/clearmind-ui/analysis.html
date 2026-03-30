@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearMind Protocol</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .step-container {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .protocol-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 40px;
+        }
+        .protocol-list li {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ClearMind Logic</div>
+        <div class="header-nav">
+            <a href="dashboard.html">Cancel</a>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <!-- STEP 0 -->
+        <div id="step-0" class="step-container">
+            <div class="document-header" style="border: none; border-bottom: 1px solid var(--text-color); padding: 0 0 40px 0; margin-bottom: 40px;">
+                <p style="color: var(--text-secondary); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.05em;">CLEARMIND PROTOCOL</p>
+                <h1 style="font-size: 2.5rem; margin-top: 16px; font-weight: 500;">Structured Validation Initiation</h1>
+            </div>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 30px;">You are about to initiate an evaluation process.</p>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.95rem;">Upon completion:</p>
+            <ul style="margin-bottom: 40px; color: var(--text-secondary); list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">* A formal determination will be issued</li>
+                <li style="margin-bottom: 10px;">* The record cannot be modified</li>
+                <li style="margin-bottom: 10px;">* 1 validation will be consumed</li>
+            </ul>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStep()">Begin Validation</button>
+                <button type="button" class="btn btn-outline" onclick="window.location.href='dashboard.html'" style="border: none;">Cancel</button>
+            </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div id="step-1" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 30px; font-size: 0.85rem; letter-spacing: 0.05em;">VALIDATION PROCESS</p>
+            
+            <ul class="protocol-list">
+                <li>1. Decision Declaration</li>
+                <li>2. Financial Context</li>
+                <li>3. Verifiable Data</li>
+                <li>4. Personal Constraints</li>
+                <li>5. Risk Evaluation</li>
+                <li>6. Horizon and Assumptions</li>
+            </ul>
+            
+            <div style="border-top: 1px solid var(--text-color); padding-top: 30px; margin-bottom: 40px;">
+                <p style="color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;">Status: Awaiting Input</p>
+            </div>
+            
+            <button type="button" class="btn btn-primary" onclick="nextStep()">Continue</button>
+        </div>
+
+        <!-- STEP 2 -->
+        <div id="step-2" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 40px; font-size: 0.85rem; letter-spacing: 0.05em;">PHASE 01</p>
+            
+            <div class="form-group" style="margin-bottom: 40px;">
+                <label for="decision" style="font-size: 1.5rem; margin-bottom: 30px; display: block; font-weight: 400;">What decision are you evaluating?</label>
+                <input type="text" id="decision" placeholder="Describe the decision with precision..." style="font-size: 1.1rem; padding: 15px; width: 100%;">
+            </div>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStepValidate('decision')">Continue</button>
+            </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div id="step-3" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 40px; font-size: 0.85rem; letter-spacing: 0.05em;">PHASE 02</p>
+            
+            <div class="form-group" style="margin-bottom: 40px;">
+                <label for="context" style="font-size: 1.5rem; margin-bottom: 30px; display: block; font-weight: 400;">Describe your current financial situation</label>
+                <textarea id="context" placeholder="Summarize your relevant financial context..." style="font-size: 1.1rem; padding: 15px; width: 100%; min-height: 150px; resize: vertical;"></textarea>
+            </div>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStepValidate('context')">Continue</button>
+            </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div id="step-4" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; font-size: 0.85rem; letter-spacing: 0.05em;">PHASE 03</p>
+            
+            <h2 style="font-size: 1.5rem; margin-bottom: 10px; font-weight: 400;">Verifiable Data</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 40px; font-size: 0.95rem;">Verifiable data only</p>
+            
+            <div class="form-row" style="margin-bottom: 20px;">
+                <div>
+                    <label for="income" style="margin-bottom: 10px; display: block; font-size: 0.95rem; color: var(--text-secondary);">Monthly Income</label>
+                    <input type="number" id="income" style="width: 100%;">
+                </div>
+                <div>
+                    <label for="expenses" style="margin-bottom: 10px; display: block; font-size: 0.95rem; color: var(--text-secondary);">Monthly Expenses</label>
+                    <input type="number" id="expenses" style="width: 100%;">
+                </div>
+            </div>
+            <div class="form-row" style="margin-bottom: 40px;">
+                <div>
+                    <label for="savings" style="margin-bottom: 10px; display: block; font-size: 0.95rem; color: var(--text-secondary);">Available Savings</label>
+                    <input type="number" id="savings" style="width: 100%;">
+                </div>
+                <div>
+                    <label for="capital" style="margin-bottom: 10px; display: block; font-size: 0.95rem; color: var(--text-secondary);">Capital to Commit</label>
+                    <input type="number" id="capital" style="width: 100%;">
+                </div>
+            </div>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStepValidate(['income', 'expenses', 'savings', 'capital'])">Continue</button>
+            </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div id="step-5" class="step-container" style="display: none;">
+            <div style="text-align: left; margin-top: 100px;">
+                <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 15px; letter-spacing: 0.05em;">PROCESSING INPUT</p>
+                <p style="color: var(--text-secondary);">Validating data consistency...</p>
+            </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div id="step-6" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; font-size: 0.85rem; letter-spacing: 0.05em;">PHASE 04</p>
+            
+            <h2 style="font-size: 1.5rem; margin-bottom: 10px; font-weight: 400;">Personal Constraints</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 40px; font-size: 0.95rem;">Define rules that must not be violated.</p>
+
+            <div id="constraints-list" class="dynamic-list" style="margin-bottom: 20px;">
+                <div class="list-item" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" name="constraint[]" placeholder="Ex: Do not liquidate long-term portfolio" style="flex: 1;">
+                    <button type="button" class="btn btn-outline btn-remove" onclick="this.parentElement.remove()" style="padding: 0 15px;">×</button>
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-outline" id="add-constraint" style="margin-bottom: 40px; border-style: dashed;">+ Add Constraint</button>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStep()">Continue</button>
+            </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div id="step-7" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 40px; font-size: 0.85rem; letter-spacing: 0.05em;">PHASE 05</p>
+            
+            <div class="form-group" style="margin-bottom: 40px;">
+                <label for="risk" style="font-size: 1.5rem; margin-bottom: 30px; display: block; font-weight: 400;">Risk Evaluation</label>
+                <select id="risk" style="font-size: 1.1rem; padding: 15px; width: 100%; max-width: 400px; background-color: transparent; border: 1px solid var(--border-color); color: var(--text-color);">
+                    <option value="" disabled selected>Select level...</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStepValidate('risk')">Continue</button>
+            </div>
+        </div>
+
+        <!-- STEP 8 -->
+        <div id="step-8" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 40px; font-size: 0.85rem; letter-spacing: 0.05em;">PHASE 06 (A)</p>
+            
+            <div class="form-group" style="margin-bottom: 40px;">
+                <label for="horizon" style="font-size: 1.5rem; margin-bottom: 30px; display: block; font-weight: 400;">Horizon and Assumptions</label>
+                <select id="horizon" style="font-size: 1.1rem; padding: 15px; width: 100%; max-width: 400px; background-color: transparent; border: 1px solid var(--border-color); color: var(--text-color);">
+                    <option value="" disabled selected>Select timeframe...</option>
+                    <option value="6m">6 months</option>
+                    <option value="1y">1 year</option>
+                    <option value="2y">2 years</option>
+                    <option value="5y">5+ years</option>
+                </select>
+            </div>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStepValidate('horizon')">Continue</button>
+            </div>
+        </div>
+
+        <!-- STEP 9 -->
+        <div id="step-9" class="step-container" style="display: none;">
+            <p style="color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; font-size: 0.85rem; letter-spacing: 0.05em;">PHASE 06 (B)</p>
+            
+            <h2 style="font-size: 1.5rem; margin-bottom: 10px; font-weight: 400;">Assumptions</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 40px; font-size: 0.95rem;">List the critical assumptions on which this decision depends. Optional.</p>
+
+            <div id="assumptions-list" class="dynamic-list" style="margin-bottom: 20px;">
+                <div class="list-item" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" name="assumption[]" placeholder="Ex: Interest rate remains constant" style="flex: 1;">
+                    <button type="button" class="btn btn-outline btn-remove" onclick="this.parentElement.remove()" style="padding: 0 15px;">×</button>
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-outline" id="add-assumption" style="margin-bottom: 40px; border-style: dashed;">+ Add Assumption</button>
+            
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" onclick="nextStep()">Finalize Intake</button>
+            </div>
+        </div>
+
+        <!-- STEP 10 -->
+        <div id="step-10" class="step-container" style="display: none;">
+            <div class="document-header" style="border: none; border-bottom: 1px solid var(--text-color); padding: 0 0 40px 0; margin-bottom: 40px;">
+                <h1 style="font-size: 2.5rem; font-weight: 500;">VALIDATION CONFIRMATION</h1>
+            </div>
+            
+            <p style="font-size: 1.1rem; margin-bottom: 30px;">You are about to submit this decision for structured evaluation.</p>
+            
+            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.95rem;">Once submitted:</p>
+            <ul style="margin-bottom: 40px; color: var(--text-secondary); list-style-type: none; padding-left: 0;">
+                <li style="margin-bottom: 10px;">* The record cannot be modified</li>
+                <li style="margin-bottom: 10px;">* The determination will be final</li>
+                <li style="margin-bottom: 10px;">* 1 validation will be consumed</li>
+            </ul>
+
+            <div class="form-group" style="margin-bottom: 40px; max-width: 400px;">
+                <input type="text" id="confirmInput" placeholder="Type: CONFIRM" style="font-size: 1.1rem; padding: 15px; width: 100%; text-align: center; text-transform: uppercase;">
+            </div>
+
+            <div class="btn-group" style="justify-content: flex-start;">
+                <button type="button" class="btn btn-primary" id="btnSubmitFinal" disabled onclick="executeValidation()">Submit Validation</button>
+                <button type="button" class="btn btn-outline" onclick="window.location.href='dashboard.html'" style="border: none;">Cancel</button>
+            </div>
+        </div>
+
+        <!-- STEP 11 -->
+        <div id="step-11" class="step-container" style="display: none;">
+            <div style="text-align: left; margin-top: 100px;">
+                <p style="font-size: 1.2rem; font-weight: 500; margin-bottom: 15px; letter-spacing: 0.05em;">PROCESSING</p>
+                <p style="color: var(--text-secondary);">Executing structured validation...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module">
+        import { buildValidationPayload, simulateValidationResponse } from './services/api.js';
+
+        let currentStep = 0;
+        const totalSteps = 11;
+
+        window.nextStep = () => {
+            document.getElementById(`step-${currentStep}`).style.display = 'none';
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).style.display = 'block';
+
+            // Auto advance for STEP 5
+            if (currentStep === 5) {
+                setTimeout(() => {
+                    window.nextStep();
+                }, 1000); // 1000ms delay
+            }
+        };
+
+        window.nextStepValidate = (fields) => {
+            const arr = Array.isArray(fields) ? fields : [fields];
+            let isValid = true;
+            for (const f of arr) {
+                const el = document.getElementById(f);
+                if (!el || !el.value.trim()) {
+                    el.style.borderColor = 'red';
+                    isValid = false;
+                }
+            }
+            if (isValid) {
+                window.nextStep();
+            }
+        };
+
+        // Reset field validations on input
+        document.querySelectorAll('input, textarea, select').forEach(el => {
+            el.addEventListener('input', () => {
+                if(el.style.borderColor === 'red') {
+                    el.style.borderColor = 'var(--border-color)';
+                }
+            });
+        });
+
+        // Dynamic constraint logic
+        document.getElementById('add-constraint').addEventListener('click', () => {
+            const list = document.getElementById('constraints-list');
+            const item = document.createElement('div');
+            item.className = 'list-item';
+            item.style.cssText = "display: flex; gap: 10px; margin-bottom: 10px;";
+            item.innerHTML = `
+                <input type="text" name="constraint[]" placeholder="Define constraint..." style="flex: 1;">
+                <button type="button" class="btn btn-outline btn-remove" onclick="this.parentElement.remove()" style="padding: 0 15px;">×</button>
+            `;
+            list.appendChild(item);
+        });
+
+        // Dynamic assumption logic
+        document.getElementById('add-assumption').addEventListener('click', () => {
+            const list = document.getElementById('assumptions-list');
+            const item = document.createElement('div');
+            item.className = 'list-item';
+            item.style.cssText = "display: flex; gap: 10px; margin-bottom: 10px;";
+            item.innerHTML = `
+                <input type="text" name="assumption[]" placeholder="Define assumption..." style="flex: 1;">
+                <button type="button" class="btn btn-outline btn-remove" onclick="this.parentElement.remove()" style="padding: 0 15px;">×</button>
+            `;
+            list.appendChild(item);
+        });
+
+        // Final confirmation logic
+        document.getElementById('confirmInput').addEventListener('input', (e) => {
+            const val = e.target.value.trim().toUpperCase();
+            document.getElementById('btnSubmitFinal').disabled = (val !== 'CONFIRM');
+        });
+
+        // Execute integration
+        window.executeValidation = () => {
+            document.getElementById(`step-${currentStep}`).style.display = 'none';
+            currentStep = 11;
+            document.getElementById(`step-${currentStep}`).style.display = 'block';
+
+            // Micro-delay
+            setTimeout(() => {
+                try {
+                    const payload = buildValidationPayload();
+                    const response = simulateValidationResponse();
+                    
+                    localStorage.setItem('clearmind_result', JSON.stringify(response));
+                    localStorage.setItem('clearmind_payload', JSON.stringify(payload));
+                    
+                    window.location.href = 'result.html';
+                } catch (e) {
+                    console.error('[ClearMind Logic] Error:', e);
+                    alert('System flow error.');
+                }
+            }, 800);
+        };
+    </script>
+</body>
+</html>

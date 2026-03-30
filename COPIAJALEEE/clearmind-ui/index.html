@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearMind Logic</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Entry page layout ── */
+        .entry-wrap {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 100px 40px 0 40px;
+        }
+
+        /* Hero */
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin: 0 0 12px 0;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin: 0 0 4px 0;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .hero-tagline {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 20px 0 32px 0;
+        }
+
+        /* Auth toggle buttons */
+        .auth-toggle {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 0;
+        }
+
+        .auth-toggle .btn {
+            flex: 1;
+        }
+
+        /* Auth form panel */
+        .auth-panel {
+            display: none;
+            padding-top: 48px;
+        }
+
+        .auth-panel.active {
+            display: block;
+        }
+
+        .auth-panel form label {
+            font-size: 0.75rem;
+        }
+
+        .auth-panel .form-note {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        /* Protocol section */
+        .protocol-section {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 64px 40px 0 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .protocol-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .protocol-body {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 1.8rem;
+        }
+
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.8rem 0;
+        }
+
+        .criteria-list li {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            padding: 6px 0 6px 20px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .criteria-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--border-color);
+        }
+
+        .determination-lines {
+            margin: 28px 0 36px 0;
+        }
+
+        .determination-lines span {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-color);
+            line-height: 2.2;
+        }
+
+        .qualifiers {
+            margin: 0 0 32px 0;
+        }
+
+        .qualifiers p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin: 0 0 4px 0;
+            line-height: 1.7;
+        }
+
+        .responsibility-note {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-top: 40px;
+        }
+
+        /* Disclaimer */
+        .page-disclaimer {
+            max-width: 480px;
+            margin: 60px auto 0 auto;
+            padding: 32px 40px 80px 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .page-disclaimer p {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin: 0;
+            opacity: 0.65;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── HERO + AUTH ── -->
+    <div class="entry-wrap">
+
+        <h1 class="hero-title">ClearMind Logic</h1>
+        <p class="hero-subtitle">Pre-execution protocol for decisions involving personal capital.</p>
+        <p class="hero-tagline">Before executing, validate.</p>
+
+        <!-- Toggle buttons -->
+        <div class="auth-toggle">
+            <button class="btn btn-primary" id="btn-access" onclick="showPanel('access')">Access</button>
+            <button class="btn btn-outline" id="btn-request" onclick="showPanel('request')">Request Access</button>
+        </div>
+
+        <!-- Access form -->
+        <div class="auth-panel" id="panel-access">
+            <form id="accessForm" action="javascript:void(0);">
+                <label for="access-email">Email</label>
+                <input type="email" id="access-email" required>
+
+                <label for="access-password">Password</label>
+                <input type="password" id="access-password" required>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;" id="submit-access-btn">Access</button>
+            </form>
+        </div>
+
+        <!-- Request Access form -->
+        <div class="auth-panel" id="panel-request">
+            <form id="requestForm" action="javascript:void(0);">
+                <label for="req-email">Email</label>
+                <input type="email" id="req-email" required>
+
+                <label for="req-password">Set Password</label>
+                <input type="password" id="req-password" required>
+
+                <label for="req-note">Context <span style="font-weight:400; text-transform:none; letter-spacing:normal;">(Optional)</span></label>
+                <textarea id="req-note" placeholder="Provide institutional context or reason for request."></textarea>
+
+                <p class="form-note">
+                    By submitting this request, you acknowledge that access is subject to review and that use of the protocol is subject to the terms of this system.
+                </p>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">Submit Request</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- ── PROTOCOL DEFINITION ── -->
+    <div class="protocol-section" id="protocol-section">
+
+        <p class="protocol-label">What is ClearMind Logic</p>
+
+        <p class="protocol-body">
+            ClearMind Logic is a validation protocol designed to determine whether a decision should be executed.
+        </p>
+
+        <p class="protocol-body">It evaluates each decision considering:</p>
+
+        <ul class="criteria-list">
+            <li>Declared risk level</li>
+            <li>Current financial exposure</li>
+            <li>Available liquidity</li>
+            <li>Cash flow commitments</li>
+            <li>Strategic coherence</li>
+        </ul>
+
+        <p class="protocol-body">It produces a determination:</p>
+
+        <div class="determination-lines">
+            <span>AUTHORIZED</span>
+            <span>NOT AUTHORIZED</span>
+        </div>
+
+        <div class="qualifiers">
+            <p>Without emotional bias.</p>
+            <p>Without impulsivity.</p>
+            <p>Without post-rationalization.</p>
+        </div>
+
+        <p class="responsibility-note">
+            The decision remains outside the system.<br>
+            So does the responsibility.
+        </p>
+
+    </div>
+
+    <!-- ── DISCLAIMER ── -->
+    <div class="page-disclaimer">
+        <p>Final decision remains with the user. ClearMind Logic provides structured validation, not execution authority.</p>
+    </div>
+
+    <script>
+        function showPanel(mode) {
+            // Hide all panels
+            document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+
+            // Reset button states
+            document.getElementById('btn-access').className = 'btn btn-outline';
+            document.getElementById('btn-request').className = 'btn btn-outline';
+
+            // Activate selected
+            document.getElementById('panel-' + mode).classList.add('active');
+            document.getElementById('btn-' + mode).className = 'btn btn-primary';
+
+            // Scroll form into view smoothly
+            document.getElementById('panel-' + mode).scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Form submissions (UI demo — no backend)
+        document.getElementById('accessForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var path = window.location.pathname;
+            var basePath = path;
+            // Si la ruta no termina en / ni en .html, el navegador creerá que es un archivo.
+            // Extraer la ruta base correcta para no causar un 404.
+            if (path.endsWith('.html') || path.endsWith('/')) {
+                basePath = path.substring(0, path.lastIndexOf('/'));
+            }
+            window.location.href = window.location.origin + basePath + '/dashboard.html';
+        });
+
+        document.getElementById('requestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Show a minimal confirmation in place of the form
+            const panel = document.getElementById('panel-request');
+            panel.innerHTML = '<p style="color: var(--text-secondary); font-size: 0.9rem; padding-top: 16px; line-height: 1.8;">Request received.<br>Access will be confirmed via email.</p>';
+        });
+
+        // Check URL param for direct deep-link (backwards compat)
+        const params = new URLSearchParams(window.location.search);
+        const mode = params.get('mode');
+        if (mode === 'request') showPanel('request');
+        else if (mode === 'login' || mode === 'access') showPanel('access');
+    </script>
+</body>
+</html>

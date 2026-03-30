@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClearMind Logic - Authentication</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Landing section styles */
+        .landing-section {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 40px 120px 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .landing-title-block {
+            padding-top: 80px;
+            margin-bottom: 80px;
+        }
+
+        .landing-title-block h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .landing-title-block .subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            text-transform: none;
+            letter-spacing: normal;
+            margin-bottom: 0;
+        }
+
+        .landing-title-block .tagline {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 24px;
+            margin-bottom: 0;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .landing-definition-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .landing-body-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+        }
+
+        .criteria-list li {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .criteria-list li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--border-color);
+        }
+
+        .determination-line {
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-color);
+            line-height: 2;
+        }
+
+        .landing-qualifiers {
+            margin-top: 40px;
+        }
+
+        .landing-qualifiers p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .landing-disclaimer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .landing-disclaimer p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin: 0;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ClearMind Logic</div>
+        <div class="header-nav">
+            <a href="index.html">Return</a>
+        </div>
+    </header>
+
+    <div class="container" style="max-width: 480px; padding-top: 64px; padding-bottom: 48px;">
+        <div class="tabs">
+            <div class="tab active" id="tab-login" onclick="switchMode('login')">Access</div>
+            <div class="tab" id="tab-request" onclick="switchMode('request')">Request</div>
+        </div>
+
+        <div id="form-login" class="tab-content active">
+            <form id="loginForm">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" required>
+                
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required>
+                
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 16px;">Authenticate</button>
+            </form>
+        </div>
+
+        <div id="form-request" class="tab-content">
+            <form id="requestForm">
+                <label for="req-email">Email</label>
+                <input type="email" id="req-email" required>
+                
+                <label for="req-note">Context (Optional)</label>
+                <textarea id="req-note" placeholder="Provide institutional context or reason for request."></textarea>
+                
+                <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 16px;" onclick="document.getElementById('form-request').innerHTML='<p style=\'color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; padding-top: 16px;\'>Request logged.<br>Institutional confirmation to follow via email.</p>';">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Landing / Definition Section -->
+    <div class="landing-section">
+
+        <div class="landing-title-block">
+            <h1>ClearMind Logic</h1>
+            <p class="subtitle">Pre-execution protocol for decisions involving personal capital.</p>
+            <p class="tagline">Before executing, validate.</p>
+        </div>
+
+        <p class="landing-definition-label">What is ClearMind Logic</p>
+
+        <p class="landing-body-text">
+            ClearMind Logic is a validation protocol designed to determine whether a decision should be executed.
+        </p>
+
+        <p class="landing-body-text">It evaluates each decision considering:</p>
+
+        <ul class="criteria-list">
+            <li>Declared risk level</li>
+            <li>Current financial exposure</li>
+            <li>Available liquidity</li>
+            <li>Cash flow commitments</li>
+            <li>Strategic coherence</li>
+        </ul>
+
+        <p class="landing-body-text">It produces a determination:</p>
+
+        <div style="margin: 32px 0 40px 0;">
+            <div class="determination-line">AUTHORIZED</div>
+            <div class="determination-line">NOT AUTHORIZED</div>
+        </div>
+
+        <div class="landing-qualifiers">
+            <p>Without emotional bias.</p>
+            <p>Without impulsivity.</p>
+            <p>Without post-rationalization.</p>
+        </div>
+
+        <div style="margin-top: 48px;">
+            <p class="landing-body-text" style="margin-bottom: 0;">The decision remains outside the system.<br>So does the responsibility.</p>
+        </div>
+
+        <div class="landing-disclaimer">
+            <p>ClearMind Logic provides a structured validation of decisions. It does not execute actions.<br>
+            Final decision-making authority remains entirely with the user.</p>
+        </div>
+
+    </div>
+
+    <script type="module">
+        function switchMode(mode) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            document.getElementById(`tab-${mode}`).classList.add('active');
+            document.getElementById(`form-${mode}`).classList.add('active');
+        }
+
+        window.switchMode = switchMode;
+
+        // Set initial mode based on URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlMode = urlParams.get('mode');
+        if (urlMode === 'request') {
+            switchMode('request');
+        }
+
+        // Fix the 404 local routing error
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            var path = window.location.pathname;
+            var basePath = path;
+            if (path.endsWith('.html') || path.endsWith('/')) {
+                basePath = path.substring(0, path.lastIndexOf('/'));
+            }
+            window.location.href = window.location.origin + basePath + '/dashboard.html';
+        });
+    </script>
+</body>
+</html>
