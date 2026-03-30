@@ -1,9 +1,12 @@
 # mind1
-m
+
+**App de producción:** `COPIAJALEEE/clearmind-ui`
 
 ## Deployment (Vercel)
 
-El despliegue en Vercel usa el archivo `vercel.json` en la raíz con:
+Todo se despliega desde una única carpeta: `COPIAJALEEE/clearmind-ui`
+
+El archivo `vercel.json` (en raíz) apunta automáticamente a esa carpeta:
 
 ```json
 {
@@ -11,8 +14,17 @@ El despliegue en Vercel usa el archivo `vercel.json` en la raíz con:
 }
 ```
 
-Pasos:
-1. `cd /workspaces/mind1`
-2. `vercel --prod`
-3. Confirmar URL de despliegue sin 404
+### Pasos para nuevo deploy
+
+1. Crea proyecto en Vercel apuntando a este repo (cgv1106dd-png/mind1)
+2. Vercel detecta `vercel.json` automáticamente
+3. Deploy sin errores → OK ✅
+
+### Cómo correr local
+
+```bash
+cd COPIAJALEEE/clearmind-ui
+python3 -m http.server 8000
+# Abre http://localhost:8000
+```
 
